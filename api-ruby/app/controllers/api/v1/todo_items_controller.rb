@@ -5,7 +5,7 @@ module Api
       before_action :set_todo_item, except: [:create]
 
       def create
-        render json: @todo_list.todo_items.create(todo_item_params)
+        render json: @todo_list.todo_items.create(todo_item_params), status: :created
       end
 
       def destroy

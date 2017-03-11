@@ -26,6 +26,8 @@ module ApiRuby
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.debug_exception_response_format = :api
-    config.mongoid.logger = Logger.new($stdout, :warn)
+    logger = Logger.new($stdout)
+    logger.level = :warn
+    config.mongoid.logger = logger
   end
 end

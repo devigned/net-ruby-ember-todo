@@ -4,7 +4,8 @@ module Api
       before_action :set_todo_list, only: [:show, :update, :destroy]
 
       def index
-        render json: TodoList.all
+        @todo_list = TodoList.all
+        render json: @todo_list
       end
 
       def show
@@ -12,7 +13,7 @@ module Api
       end
 
       def create
-        @todo_list = TodoList.new(todo_list_params)
+        @todo_list = TodoList.new(list_params)
         if @todo_list.save
           render json: @todo_list, status: :created
         else
@@ -21,7 +22,7 @@ module Api
       end
 
       def update
-        if @todo_list.update(todo_list_params)
+        if @todo_list.update(list_params)
           render json: @todo_list, status: :ok
         else
           render json: @todo_list.errors, status: :unprocessable_entity
@@ -34,6 +35,11 @@ module Api
       end
 
       private
+
+      def list_params
+        params.require(:todo_list).permit(:title, :description)
+      end
+
       def set_todo_list
         @todo_list = TodoList.find(params[:id])
       end

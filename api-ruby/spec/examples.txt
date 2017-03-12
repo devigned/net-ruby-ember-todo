@@ -1,11 +1,11 @@
 example_id                                                     | status | run_time        |
 -------------------------------------------------------------- | ------ | --------------- |
-./spec/controllers/api/v1/todo_items_controller_spec.rb[1:1:1] | passed | 0.01001 seconds |
-./spec/controllers/api/v1/todo_items_controller_spec.rb[1:1:2] | passed | 0.02182 seconds |
-./spec/controllers/api/v1/todo_items_controller_spec.rb[1:2:1] | passed | 0.01023 seconds |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:1] | passed | 0.00656 seconds |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:2] | passed | 0.00399 seconds |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:3] | passed | 0.0037 seconds  |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:2:1] | passed | 0.00745 seconds |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:2:2] | passed | 0.06024 seconds |
-./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:3:1] | passed | 0.01334 seconds |
+./spec/controllers/api/v1/todo_items_controller_spec.rb[1:1:1] | passed | 0.01225 seconds |
+./spec/controllers/api/v1/todo_items_controller_spec.rb[1:1:2] | passed | 0.07006 seconds |
+./spec/controllers/api/v1/todo_items_controller_spec.rb[1:2:1] | passed | 0.01612 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:1] | passed | 0.00625 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:2] | passed | 0.00349 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:1:3] | passed | 0.00347 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:2:1] | passed | 0.00681 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:2:2] | passed | 0.01686 seconds |
+./spec/controllers/api/v1/todo_lists_controller_spec.rb[1:3:1] | passed | 0.00743 seconds |

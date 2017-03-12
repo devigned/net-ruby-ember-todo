@@ -18,18 +18,30 @@ module Api
 
         it 'returns json' do
           get :index
-          expect(response.content_type).to eq 'application/json'
+          expect(response.content_type).to eq 'application/vnd.api+json'
         end
       end
 
       describe 'create list' do
+        let(:params) {
+          {
+              data: {
+                   attributes: {
+                       title: 'Fuzz',
+                       description: 'Bar'
+                   },
+                   type: 'todo-lists'
+               }
+          }
+        }
+
         it 'has a 201 status code' do
-          post :create, params: { todo_list: {title: 'title', description: 'description'}}, format: :json
+          post :create, params: params, format: :json
           expect(response.status).to eq(201)
         end
 
         it 'stored the todo_list' do
-          expect{ post :create, params: { todo_list: {title: 'title', description: 'description'}}, format: :json }.
+          expect{ post :create, params: params, format: :json }.
               to change{ TodoList.count }.by(1)
         end
       end

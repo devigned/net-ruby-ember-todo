@@ -1,1 +1,6 @@
-{{#todo-list model=model deleteList=(action "deleteList")}}{{/todo-list}}
+{{#todo-list model=model 
+deleteList=(action "deleteList") 
+createTodo=(action 'createTodo')
+completeTodo=(action 'completeTodo')
+deleteTodo=(action 'deleteTodo')
+}}{{/todo-list}}

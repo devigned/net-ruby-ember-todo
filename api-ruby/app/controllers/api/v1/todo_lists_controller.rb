@@ -17,7 +17,7 @@ module Api
         if @todo_list.save
           render json: @todo_list, status: :created
         else
-          render json: @todo_list.errors, status: :unprocessable_entity
+          render json: @todo_list, status: :unprocessable_entity
         end
       end
 
@@ -25,7 +25,7 @@ module Api
         if @todo_list.update(list_params)
           render json: @todo_list, status: :ok
         else
-          render json: @todo_list.errors, status: :unprocessable_entity
+          render json: @todo_list, status: :unprocessable_entity
         end
       end
 

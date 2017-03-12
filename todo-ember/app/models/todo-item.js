@@ -5,8 +5,8 @@ export default DS.Model.extend({
   title: attr('string'),
   content: attr('string'),
   completed: attr('boolean'),
-  order: attr('integer'),
+  order: attr('number'),
   url: attr('string'),
 
-  list: belongsTo('todo-list')
+  todoList: belongsTo('todo-list')
 });

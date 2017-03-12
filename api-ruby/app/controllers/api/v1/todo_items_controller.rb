@@ -1,11 +1,15 @@
 module Api
   module V1
     class TodoItemsController < ApplicationController
-      before_action :set_todo_list
+      before_action :set_todo_list, except: [:show, :destroy]
       before_action :set_todo_item, except: [:create]
 
       def create
-        render json: @todo_list.todo_items.create(todo_item_params), status: :created
+        render json: @todo_list.todo_items.create(item_params.slice(:content)), status: :created
+      end
+
+      def show
+        render json: @todo_item
       end
 
       def destroy
@@ -16,23 +20,31 @@ module Api
         end
       end
 
-      def complete
-        @todo_item.update_attribute(:completed_at, Time.now)
-        render json: @todo_item
+      def update
+        if @todo_item.update(item_params.except(:list_id))
+          render json: @todo_item, status: :ok
+        else
+          render json: @todo_item, status: :unprocessable_entity
+        end
       end
 
       private
 
       def set_todo_list
-        @todo_list = TodoList.find(params[:todo_list_id])
+        @todo_list = TodoList.find(todo_list_id)
       end
 
       def set_todo_item
-        @todo_item = @todo_list.todo_items.find(params[:id])
+        @todo_item = TodoItem.find(params[:id])
       end
 
-      def todo_item_params
-        params[:todo_item].permit(:content)
+      def item_params
+        ActiveModelSerializers::Deserialization.jsonapi_parse!(params)
+      end
+
+      def todo_list_id
+        # idk ¯\_(ツ)_/¯ the tests fail b/c of AMS resource serialization, so just looks here if not found
+        item_params[:todo_list_id] || params['data']['relationships']['todo-list']['data']
       end
     end
   end

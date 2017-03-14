@@ -7,7 +7,7 @@ using Todo.Services;
 
 namespace Todo.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/todo_lists")]
     public class TodoListController : Controller
     {
         private readonly IStoreService _store;
@@ -22,7 +22,7 @@ namespace Todo.Controllers
         {
             return _store.GetAll<TodoList>();
         }
-
+        
         // GET api/v1/todo_lists/asldfkjasdklfaj
         [HttpGet("{id}")]
         public TodoList Get(string id)

@@ -15,7 +15,6 @@
     <PackageReference Include="MongoDB.Driver" Version="2.4.3" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.4.3" />
     <PackageReference Include="MongoDB.Bson" Version="2.4.3" />
-    <PackageReference Include="Hypermedia.JsonApi.WebApi" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

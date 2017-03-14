@@ -6,7 +6,7 @@ using Todo.Services;
 
 namespace Todo.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/todo_items")]
     public class TodoItemController : Controller
     {
         private readonly IStoreService _store;

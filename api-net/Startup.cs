@@ -18,7 +18,7 @@ namespace Todo
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -29,6 +29,8 @@ namespace Todo
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddOptions();
+            services.Configure<DbOptions>(Configuration);
             services.AddTransient<IStoreService, StoreService>();
             services.AddMvc();
         }

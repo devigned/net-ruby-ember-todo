@@ -27,7 +27,7 @@ module ApiRuby
     config.api_only = true
     config.debug_exception_response_format = :api
     logger = Logger.new($stdout)
-    logger.level = :warn
+    # logger.level = :warn
     config.mongoid.logger = logger
   end
 end

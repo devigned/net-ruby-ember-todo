@@ -32,6 +32,14 @@ namespace Todo
             services.AddOptions();
             services.Configure<DbOptions>(Configuration);
             services.AddTransient<IStoreService, StoreService>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddMvc();
         }
 
@@ -40,7 +48,11 @@ namespace Todo
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

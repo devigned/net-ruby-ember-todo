@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using Newtonsoft.Json.Linq;
 using Todo.Models;
 using Todo.Services;
 
@@ -18,30 +21,30 @@ namespace Todo.Controllers
 
         // GET api/v1/todo_lists
         [HttpGet]
-        public IEnumerable<TodoList> Get()
+        public JObject Get()
         {
-            return _store.GetAll<TodoList>();
+            return ToData(new JArray(_store.GetAll<TodoList>().Select(i => i.ToJson())));
         }
         
         // GET api/v1/todo_lists/asldfkjasdklfaj
         [HttpGet("{id}")]
-        public TodoList Get(string id)
+        public JObject Get(string id)
         {
-            return _store.Get<TodoList>(id);
+            return ToData(_store.Get<TodoList>(new ObjectId(id)).ToJson());
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]TodoList list)
+        public void Post([FromBody]JObject jList)
         {
-            _store.Save(list);
+            _store.Save(new TodoList(jList));
         }
 
         // Patch api/v1/todo_lists/asldfkjasdklfaj
         [HttpPatch("{id}")]
-        public TodoList Patch(string id, [FromBody]IDictionary<string, object> patch)
+        public JObject Patch(string id, [FromBody]IDictionary<string, object> patch)
         {
-            var item = _store.Get<TodoList>(id);
+            var item = _store.Get<TodoList>(new ObjectId(id));
             if(patch.ContainsKey("title")){
                 item.Title = (String)patch["title"];
             }
@@ -49,16 +52,23 @@ namespace Todo.Controllers
                 item.Description = (String)patch["description"];
             }
             _store.Save(item);
-            return item;
+            return ToData(item.ToJson());
         }
 
         // DELETE api/v1/todo_lists/asldfkjasdklfaj
         [HttpDelete("{id}")]
-        public TodoList Delete(string id)
+        public JObject Delete(string id)
         {
-            var item = _store.Get<TodoList>(id);
+            var item = _store.Get<TodoList>(new ObjectId(id));
             item = _store.Delete<TodoList>(item);
-            return item;
+            return ToData(item.ToJson());
+        }
+
+        private JObject ToData(JToken token)
+        {
+            var data = new JObject();
+            data.Add("data", token);
+            return data;
         }
     }
 }

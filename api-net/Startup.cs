@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,7 +42,10 @@ namespace Todo
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-            services.AddMvc();
+            services.AddMvc(opts => {
+                var formatter = opts.InputFormatters.OfType<JsonInputFormatter>().First();
+                formatter.SupportedMediaTypes.Add("application/vnd.api+json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

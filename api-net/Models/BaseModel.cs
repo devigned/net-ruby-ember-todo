@@ -35,7 +35,9 @@ namespace Todo.Models
 
         public abstract JObject ToJson();
         protected virtual void FromJson(JObject jList){
-            Id = new ObjectId(jList["id"].Value<string>());
+            if(jList.GetValue("id") != null){
+                Id = new ObjectId(jList["id"].Value<string>());
+            }
         }
     }
 }

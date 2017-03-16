@@ -48,13 +48,15 @@ namespace Todo.Models
 
         protected override void FromJson(JObject jObj)
         {
-            var attributes = jObj["attributes"];
+            var data = jObj["data"] as JObject;
+            base.FromJson(data);
+            var attributes = data["attributes"];
             Content = attributes["content"].Value<string>();
             Completed = attributes["completed"].Value<bool>();
-            var relationships = jObj["relationships"]?["todo-list"]?["data"]?.HasValues;
+            var relationships = data["relationships"]?["todo-list"]?["data"]?.HasValues;
             if (relationships.HasValue && relationships.Value)
             {
-                TodoListId = new ObjectId(jObj["relationships"]["todo-lists"]["data"]["id"].Value<string>());
+                TodoListId = new ObjectId(data["relationships"]["todo-list"]["data"]["id"].Value<string>());
             }
         }
     }

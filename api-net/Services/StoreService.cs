@@ -82,7 +82,7 @@ namespace Todo.Services
         {
             try
             {
-                if (item.Id != null)
+                if (item.Id == ObjectId.Empty)
                 {
                     GetCollection<T>().InsertOne(item);
                 }

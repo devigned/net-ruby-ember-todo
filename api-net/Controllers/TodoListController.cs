@@ -42,17 +42,12 @@ namespace Todo.Controllers
 
         // Patch api/v1/todo_lists/asldfkjasdklfaj
         [HttpPatch("{id}")]
-        public JObject Patch(string id, [FromBody]IDictionary<string, object> patch)
+        public JObject Patch(string id, [FromBody]JObject patch)
         {
-            var item = _store.Get<TodoList>(new ObjectId(id));
-            if(patch.ContainsKey("title")){
-                item.Title = (String)patch["title"];
-            }
-            if(patch.ContainsKey("description")) {
-                item.Description = (String)patch["description"];
-            }
-            _store.Save(item);
-            return ToData(item.ToJson());
+            // Really should be only patching, but really, I'm PUT'ing
+            var updatedList = new TodoList(patch);
+            _store.Save(updatedList);
+            return ToData(updatedList.ToJson());
         }
 
         // DELETE api/v1/todo_lists/asldfkjasdklfaj

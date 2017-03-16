@@ -51,10 +51,11 @@ namespace Todo.Models
 
         protected override void FromJson(JObject jList)
         {
-            base.FromJson(jList);
-            var attributes = jList["attributes"];
+            var data = jList["data"] as JObject;
+            base.FromJson(data);
+            var attributes = data["attributes"];
             Title = attributes["title"].Value<string>();
-            Title = attributes["description"].Value<string>();
+            Description = attributes["description"].Value<string>();
         }
     }
 }
